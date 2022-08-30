@@ -1,0 +1,13 @@
+
+            cancellable = ModelEntity.loadAsync(named: "shoe")
+                .sink { loadCompletion in
+                    if case let .failure(error) = loadCompletion {
+                        print("Unable to load model \(error)")
+                    }
+                    
+                    self.cancellable?.cancel()
+                    
+                } receiveValue: { entity in
+                    
+                    anchor.addChild(entity)
+                }
